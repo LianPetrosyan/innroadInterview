@@ -45,37 +45,20 @@ function App() {
     // })
     // .then(response => {
 
-       let index = posts.findIndex(el => el.userId === post.userId)
+    let index = posts.findIndex(el => el.userId === post.userId)
 
-       const newPosts = [...posts]
-       newPosts.splice(index, 0, newPost)
+    const newPosts = [...posts]
+    newPosts.splice(index, 0, newPost)
 
-      setPosts(newPosts)
-
-      console.log(posts)
-
-      
-
-    //   const unSorted = ([...posts,response.data])
-    //   const sorted = sortOrder === "asc"
-    //   ? unSorted.slice().sort((a, b) => a.userName.localeCompare(b.userName))
-    //   : unSorted.slice().sort((a, b) => b.userName.localeCompare(a.userName))
-    // setPosts(sorted)
-    // })
-    // .catch(error => {
-    //   console.log(error);
-    // });
+    setPosts(newPosts)
   }
 
-  useEffect(()=>{
+    useEffect(()=>{
     Promise.all([api.fetchUsers(), api.fetchPosts()])
     .then(([users, posts]) => {
       setUsers(users.sort((a, b) => a.name.localeCompare(b.name)))
-      const obj = {
-        
-      }
+      const obj = {}
       users.forEach(el=> obj[el.id] = el.username)
-      console.log(obj)
       posts.forEach(el => el.userName = obj[el.userId])
       setPosts(posts)
     });
